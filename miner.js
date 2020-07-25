@@ -9,19 +9,19 @@ const bot = mineflayer.createBot({
 
 let first = false
 bot.on('spawn', function () {
-    const sync = () => new Promise(()=>{
+    const sync = () => new Promise(() => {
         setTimeout(function () {
             bot.chat("/l 1234");
         }, 3000);
         setTimeout(function () {
             bot.clickWindow(38, 0, 0)
         }, 6000);
-        setTimeout(()=>{
+        setTimeout(() => {
             console.log("start")
             startDigging()
-        },9000)
+        }, 9000)
     })
-    if(!first){
+    if (!first) {
         first = true
         sync()
     }
@@ -69,29 +69,29 @@ function startDigging() {
     }
 }
 
-function selectBlock(){
+function selectBlock() {
     if (block == 0) {
         block = 1
         return bot.blockAt(bot.entity.position.offset(0, 0, -1))
-    }else if(block == 1){
+    } else if (block == 1) {
         block = 2
         return bot.blockAt(bot.entity.position.offset(-1, 0, -1))
-    }else if(block == 2){
+    } else if (block == 2) {
         block = 3
         return bot.blockAt(bot.entity.position.offset(-1, 0, 0))
-    }else if(block == 3){
+    } else if (block == 3) {
         block = 4
         return bot.blockAt(bot.entity.position.offset(-1, 0, 1))
-    }else if(block == 4){
+    } else if (block == 4) {
         block = 5
         return bot.blockAt(bot.entity.position.offset(0, 0, 1))
-    }else if(block == 5){
+    } else if (block == 5) {
         block = 6
         return bot.blockAt(bot.entity.position.offset(1, 0, 1))
-    }else if(block == 6){
+    } else if (block == 6) {
         block = 7
         return bot.blockAt(bot.entity.position.offset(1, 0, 0))
-    }else if(block == 7){
+    } else if (block == 7) {
         block = 0
         return bot.blockAt(bot.entity.position.offset(1, 0, -1))
     }
@@ -102,27 +102,55 @@ function putIntoChest() {
     if (target.name === "chest") {
         console.log("opened")
         var chest = bot.openChest(target);
+        chest = bot.openChest(target);
         chest.on('open', () => {
-            try{
-                chest.deposit(4, null, 5000)
-            }catch(e){}
-            try{
-                chest.deposit(351, null, 5000)
-            }catch(e){}
-            try{
-                chest.deposit(1, null, 5000)
-            }catch(e){}
-            try{
-                chest.deposit(16, null, 5000)
-            }catch(e){}
+            console.log("good")
+            putItems(chest)
             setTimeout(() => {
                 chest.close();
-            }, 3000)
+            }, 11000)
         })
         setTimeout(() => {
             startDigging()
-        }, 4000)
+        }, 12000)
     }
+}
+
+function putItems(chest) {
+    let number = bot.inventory.count(4)
+    if (number > 0) {
+        chest.deposit(4, null, number)
+    }
+    setTimeout(()=>{
+        number = bot.inventory.count(351)
+        if (number > 0) {
+            chest.deposit(351, null, number)
+        }
+    },2000)
+    setTimeout(()=>{
+        number = bot.inventory.count(1)
+        if (number > 0) {
+            chest.deposit(1, null, number)
+        }
+    },4000)
+    setTimeout(()=>{
+        number = bot.inventory.count(16)
+        if (number > 0) {
+            chest.deposit(16, null, number)
+        }
+    },6000)
+    setTimeout(()=>{
+        number = bot.inventory.count(15)
+        if (number > 0) {
+            chest.deposit(15, null, number)
+        }
+    },8000)
+    setTimeout(()=>{
+        number = bot.inventory.count(14)
+        if (number > 0) {
+            chest.deposit(14, null, number)
+        }
+    },10000)
 }
 
 function botEquipPickaxe() {
@@ -141,7 +169,7 @@ function completed(e) {
             console.error(e)
         }
         digged += 1
-        if (digged == 60) {
+        if (digged == 1200) {
             digged = 0
             try {
                 putIntoChest()
@@ -158,10 +186,10 @@ function completed(e) {
 function digBlock(target) {
     if (bot.canDigBlock(target) && target.name !== "air") {
         bot.dig(target, completed)
-    }else{
-        setTimeout(()=>{
+    } else {
+        setTimeout(() => {
             startDigging()
-        },100)
+        }, 100)
     }
 }
 
