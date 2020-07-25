@@ -103,17 +103,25 @@ function putIntoChest() {
         console.log("opened")
         var chest = bot.openChest(target);
         chest.on('open', () => {
-            chest.deposit(4, null, 5000, (e) => {console.error(e)})
-            chest.deposit(351, null, 5000, (e) => {console.error(e)})
-            chest.deposit(1, null, 5000, (e) => {console.error(e)})
-            chest.deposit(16, null, 5000, (e) => {console.error(e)})
+            try{
+                chest.deposit(4, null, 5000, (e) => {console.error(e)})
+            }catch(e){}
+            try{
+                chest.deposit(351, null, 5000, (e) => {console.error(e)})
+            }catch(e){}
+            try{
+                chest.deposit(1, null, 5000, (e) => {console.error(e)})
+            }catch(e){}
+            try{
+                chest.deposit(16, null, 5000, (e) => {console.error(e)})
+            }catch(e){}
             setTimeout(() => {
                 chest.close();
-            }, 2400)
+            }, 3000)
         })
         setTimeout(() => {
             startDigging()
-        }, 3600)
+        }, 4000)
     }
 }
 
