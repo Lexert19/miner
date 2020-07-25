@@ -104,16 +104,16 @@ function putIntoChest() {
         var chest = bot.openChest(target);
         chest.on('open', () => {
             try{
-                chest.deposit(4, null, 5000, (e) => {console.error(e)})
+                chest.deposit(4, null, 5000)
             }catch(e){}
             try{
-                chest.deposit(351, null, 5000, (e) => {console.error(e)})
+                chest.deposit(351, null, 5000)
             }catch(e){}
             try{
-                chest.deposit(1, null, 5000, (e) => {console.error(e)})
+                chest.deposit(1, null, 5000)
             }catch(e){}
             try{
-                chest.deposit(16, null, 5000, (e) => {console.error(e)})
+                chest.deposit(16, null, 5000)
             }catch(e){}
             setTimeout(() => {
                 chest.close();
@@ -141,7 +141,7 @@ function completed(e) {
             console.error(e)
         }
         digged += 1
-        if (digged == 600) {
+        if (digged == 60) {
             digged = 0
             try {
                 putIntoChest()
