@@ -1,6 +1,4 @@
 const mineflayer = require('mineflayer')
-const mp = require('minecraft-protocol')
-var vec3 = require('vec3');
 
 const bot = mineflayer.createBot({
     host: 'nssv.pl',
@@ -12,14 +10,16 @@ const bot = mineflayer.createBot({
 let first = false
 bot.on('spawn', function () {
     const sync = () => new Promise(()=>{
-        bot.chat("/l 1234");
+        setTimeout(function () {
+            bot.chat("/l 1234");
+        }, 3000);
         setTimeout(function () {
             bot.clickWindow(38, 0, 0)
-        }, 2000);
+        }, 6000);
         setTimeout(()=>{
             console.log("start")
             startDigging()
-        },6000)
+        },9000)
     })
     if(!first){
         first = true
