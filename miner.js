@@ -106,6 +106,7 @@ function putIntoChest() {
             chest.deposit(4, null, 5000, (e) => {console.error(e)})
             chest.deposit(351, null, 5000, (e) => {console.error(e)})
             chest.deposit(1, null, 5000, (e) => {console.error(e)})
+            chest.deposit(16, null, 5000, (e) => {console.error(e)})
             setTimeout(() => {
                 chest.close();
             }, 2400)
