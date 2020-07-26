@@ -98,7 +98,7 @@ function selectBlock() {
 }
 
 function putIntoChest() {
-    var target = bot.blockAt(bot.entity.position.offset(2, 1, 0))
+    var target = bot.blockAt(bot.entity.position.offset(0, 1, -2))
     if (target.name === "chest") {
         console.log("opened")
         var chest = bot.openChest(target);
