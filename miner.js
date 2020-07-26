@@ -108,49 +108,55 @@ function putIntoChest() {
             putItems(chest)
             setTimeout(() => {
                 chest.close();
-            }, 11000)
+            }, 19000)
         })
         setTimeout(() => {
             startDigging()
-        }, 12000)
+        }, 20000)
     }
 }
 
-function putItems(chest) {
-    let number = bot.inventory.count(4)
+async function putItems(chest) {
+    let number = await bot.inventory.count(4)
     if (number > 0) {
-        chest.deposit(4, null, number)
+        await chest.deposit(4, null, number)
     }
-    setTimeout(()=>{
-        number = bot.inventory.count(351)
-        if (number > 0) {
-            chest.deposit(351, null, number)
-        }
-    },2000)
-    setTimeout(()=>{
-        number = bot.inventory.count(1)
-        if (number > 0) {
-            chest.deposit(1, null, number)
-        }
-    },4000)
-    setTimeout(()=>{
-        number = bot.inventory.count(16)
-        if (number > 0) {
-            chest.deposit(16, null, number)
-        }
-    },6000)
-    setTimeout(()=>{
-        number = bot.inventory.count(15)
-        if (number > 0) {
-            chest.deposit(15, null, number)
-        }
-    },8000)
-    setTimeout(()=>{
-        number = bot.inventory.count(14)
-        if (number > 0) {
-            chest.deposit(14, null, number)
-        }
-    },10000)
+    await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+
+    number = await bot.inventory.count(1)
+    if (number > 0) {
+        await chest.deposit(1, null, number)
+    }
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+    number = await bot.inventory.count(351)
+    if (number > 0) {
+        await chest.deposit(351, null, number)
+    }
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+    number = await bot.inventory.count(16)
+    if (number > 0) {
+        await chest.deposit(16, null, number)
+    }
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+    number = await bot.inventory.count(15)
+    if (number > 0) {
+        await chest.deposit(15, null, number)
+    }
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+    number = await bot.inventory.count(14)
+    if (number > 0) {
+        await chest.deposit(14, null, number)
+    }
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
+    number = await bot.inventory.count(264)
+    if (number > 0) {
+        await chest.deposit(264, null, number)
+    }
 }
 
 function botEquipPickaxe() {
