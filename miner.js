@@ -46,22 +46,6 @@ function startDigging() {
         return 0;
     } else {
         botEquipPickaxe()
-        // if (block == 0) {
-        //     var target = bot.blockAt(bot.entity.position.offset(0, 0, -1))
-        //     block = 1
-        // }
-        // else if (block == 1) {
-        //     var target = bot.blockAt(bot.entity.position.offset(-1, 0, 0))
-        //     block = 2
-        // }
-        // else if (block == 2) {
-        //     var target = bot.blockAt(bot.entity.position.offset(0, 0, 1))
-        //     block = 3
-        // }
-        // else if(block == 3){
-        //     var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
-        //     block = 0
-        // }
         var target = selectBlock()
         if (target) {
             digBlock(target)
@@ -97,96 +81,143 @@ function selectBlock() {
     }
 }
 
-function putIntoChest() {
-    var target = bot.blockAt(bot.entity.position.offset(0, 1, -2))
-    if (target.name === "chest") {
-        console.log("opened")
-        var chest = bot.openChest(target);
-        chest = bot.openChest(target);
-        chest.on('open', () => {
-            console.log("good")
+let counter = 0
+async function putIntoChest() {
+    counter += 1
+    bot.lookAt(bot.entity.position.offset(0, 1, -2))
+    var target = await bot.blockAt(bot.entity.position.offset(0, 1, -2))
+    var chest = await bot.openChest(target)
+    chest = await bot.openChest(target);
+    await chest.on('open', function () {
+        if (openedChest == false) {
+            openedChest = true
             putItems(chest)
-            setTimeout(() => {
-                chest.close();
-            }, 19000)
-        })
-        setTimeout(() => {
-            startDigging()
-        }, 20000)
-    }
+        }
+    })
+    setTimeout(() => {
+        if (openedChest == false) {
+            putIntoChest()
+        }
+    }, 4000)
+    // if (target.name === "chest") {
+    //     console.log("opened")
+    //     let chest = bot.openChest(target);
+    //     //chest.count()
+    //     chest.on('open', ()=>{
+    //         console.log("good")
+    //         putItems(chest)
+    //     })
+    // test()
+    // .then(()=>{
+    //     chest = bot.openChest(target);
+    //     chest.on('open', function(){
+    //         putItems(chest)
+    //     })
+    // })
+    // .then(()=>{
+    //     console.log(chest)
+    //     chest.close()
+    // })
+    //var chest = await bot.openChest(target);
+    //await chest.close()
+    //chest = bot.openChest(target);
+    //chest = await bot.openChest(target);
+    //console.log(chest)
+    // chest.on('open', function(){
+    //     putItems(chest)
+    //     // console.log("good")
+    //     // await putItems(chest)
+    //     // await setTimeout(() => {
+    //     //     await chest.close();
+    //     //     await startDigging()
+    //     // }, 19000)
+    // })
+    //}
 }
 
+let openedChest = false
 async function putItems(chest) {
-    let number = await bot.inventory.count(4)
-    if (number > 0) {
-        await chest.deposit(4, null, number)
+    console.log("good: " + ((counter-1) * 3) + " s")
+    counter = 0
+
+    let number4 = await bot.inventory.count(4)
+    let number1 = await bot.inventory.count(1)
+    let number351 = await bot.inventory.count(351)
+
+    let number16 = await bot.inventory.count(16)
+    let number15 = await bot.inventory.count(15)
+    let number14 = await bot.inventory.count(14)
+
+    let number264 = await bot.inventory.count(264)
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    if (number4 > 0) {
+        chest.deposit(4, null, number4)
     }
     await new Promise((resolve, reject) => setTimeout(resolve, 4000));
 
-    number = await bot.inventory.count(1)
-    if (number > 0) {
-        await chest.deposit(1, null, number)
+    if (number1 > 0) {
+        chest.deposit(1, null, number1)
     }
-
     await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-    number = await bot.inventory.count(351)
-    if (number > 0) {
-        await chest.deposit(351, null, number)
-    }
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-    number = await bot.inventory.count(16)
-    if (number > 0) {
-        await chest.deposit(16, null, number)
+    if (number351 > 0) {
+        chest.deposit(351, null, number351)
     }
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-    number = await bot.inventory.count(15)
-    if (number > 0) {
-        await chest.deposit(15, null, number)
+    if (number16 > 0) {
+        chest.deposit(16, null, number16)
     }
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-    number = await bot.inventory.count(14)
-    if (number > 0) {
-        await chest.deposit(14, null, number)
+    if (number15 > 0) {
+        chest.deposit(15, null, number15)
     }
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-    number = await bot.inventory.count(264)
-    if (number > 0) {
-        await chest.deposit(264, null, number)
+    if (number14 > 0) {
+        chest.deposit(14, null, number14)
     }
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    if (number264 > 0) {
+        chest.deposit(264, null, number264)
+    }
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    console.log("koniec")
+    chest.close();
+    openedChest = false
+    startDigging()
 }
 
+const mcData = require('minecraft-data')(bot.version)
 function botEquipPickaxe() {
-    const mcData = require('minecraft-data')(bot.version)
     bot.equip(mcData["itemsByName"].diamond_pickaxe.id, 'hand', (err) => {
         if (err) {
-            //console.log("error: "+err)
+            console.log(err)
         } else {
         }
     })
 }
 
 function completed(e) {
-    const sync = () => new Promise(() => {
-        if (e) {
+    if (e) {
+        console.error(e)
+    }
+    digged += 1
+    if (digged == 1200) {
+        digged = 0
+        try {
+            putIntoChest()
+        } catch (e) {
             console.error(e)
+            putIntoChest();
         }
-        digged += 1
-        if (digged == 1200) {
-            digged = 0
-            try {
-                putIntoChest()
-            } catch (e) {
-                startDigging();
-            }
-        } else {
-            startDigging()
-        }
-    })
-    sync()
+    } else {
+        startDigging()
+    }
 }
 
 function digBlock(target) {
@@ -195,7 +226,7 @@ function digBlock(target) {
     } else {
         setTimeout(() => {
             startDigging()
-        }, 100)
+        }, 300)
     }
 }
 
