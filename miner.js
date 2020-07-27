@@ -186,7 +186,7 @@ async function putItems(chest) {
     }
     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    console.log("koniec")
+    console.log("koniec"+(Date.now()/60000))
     chest.close();
     openedChest = false
     startDigging()
@@ -196,7 +196,7 @@ const mcData = require('minecraft-data')(bot.version)
 function botEquipPickaxe() {
     bot.equip(mcData["itemsByName"].diamond_pickaxe.id, 'hand', (err) => {
         if (err) {
-            console.log(err)
+            //console.log("0 kilof")
         } else {
         }
     })
@@ -232,3 +232,8 @@ function digBlock(target) {
 
 bot.on('error', err => console.log(err))
 
+bot.on('end', msg =>{
+    console.log("zerwano połączenie")
+    console.log(msg)
+    bot.quit()
+})
