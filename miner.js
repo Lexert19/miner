@@ -149,6 +149,7 @@ async function putItems(chest) {
     let number14 = await bot.inventory.count(14)
 
     let number264 = await bot.inventory.count(264)
+    let number73 = await bot.inventory.count(73)
 
     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     if (number4 > 0) {
@@ -183,6 +184,11 @@ async function putItems(chest) {
 
     if (number264 > 0) {
         chest.deposit(264, null, number264)
+    }
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    if (number73 > 0) {
+        chest.deposit(73, null, number264)
     }
     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
