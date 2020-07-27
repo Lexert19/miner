@@ -155,12 +155,12 @@ async function putItems(chest) {
     if (number4 > 0) {
         chest.deposit(4, null, number4)
     }
-    await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
 
     if (number1 > 0) {
         chest.deposit(1, null, number1)
     }
-    await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
 
     if (number351 > 0) {
         chest.deposit(351, null, number351)
