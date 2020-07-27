@@ -235,5 +235,5 @@ bot.on('error', err => console.log(err))
 bot.on('end', msg =>{
     console.log("zerwano połączenie")
     console.log(msg)
-    bot.quit()
+    bot.end()
 })
