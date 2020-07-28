@@ -1,6 +1,8 @@
 const mineflayer = require('mineflayer')
-
-login()
+var connected = false
+try{
+    connecting()
+}catch(e){}
 
 var bot
 let first = false
@@ -13,9 +15,10 @@ function login() {
     })
 
     bot.on('spawn', function () {
-        if (first)
+        if(first)
             return 0
 
+        connected = true
         first = true
         setTimeout(function () {
             bot.chat("/l 1234");
@@ -32,12 +35,53 @@ function login() {
     bot.on('error', err => console.log(err))
 
     bot.on('end', msg => {
-        console.log("zerwano połączenie")
-        console.log(msg)
-        bot.quit()
-        login()
+        if(connected){
+            console.log("zerwano połączenie")
+            connected = false
+            first = false
+            bot.quit()
+        }
+        //login()
     })
 }
+
+async function connecting(){
+    while(true){
+        if(connected == false){
+            console.log("try")
+            await login()
+        }
+        await new Promise((resolve, reject) => setTimeout(resolve, 7000));
+    }
+}
+
+// var working = false
+// async function tryLogin(){
+//     if(working==true)
+//         return 0
+
+//     while(true){
+//         if(connected==false){
+//             working = true
+//             console.log("try")
+//             login()
+//         }
+//         await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+//     }
+//     try{
+//         if(connected==false){
+//             console.log("try")
+//             login()
+//             setTimeout(()=>{
+//                 tryLogin()
+//             },12000)
+//             //tryLogin()
+//         }
+//     }catch(e){
+//         //console.log(e)
+//         //tryLogin()
+//     }
+// }
 
 // const bot = mineflayer.createBot({
 //     host: 'nssv.pl',
@@ -85,7 +129,9 @@ function startDigging() {
         return 0;
     } else {
         botEquipPickaxe()
-        var target = selectBlock()
+        try{
+            var target = selectBlock()
+        }catch(e){}
         if (target) {
             digBlock(target)
         }
@@ -130,7 +176,11 @@ async function putIntoChest() {
     await chest.on('open', function () {
         if (openedChest == false) {
             openedChest = true
-            putItems(chest)
+            try{
+                putItems(chest)
+            }catch(e){
+                //openedChest = false
+            }
         }
     })
     setTimeout(() => {
@@ -138,40 +188,6 @@ async function putIntoChest() {
             putIntoChest()
         }
     }, 4000)
-    // if (target.name === "chest") {
-    //     console.log("opened")
-    //     let chest = bot.openChest(target);
-    //     //chest.count()
-    //     chest.on('open', ()=>{
-    //         console.log("good")
-    //         putItems(chest)
-    //     })
-    // test()
-    // .then(()=>{
-    //     chest = bot.openChest(target);
-    //     chest.on('open', function(){
-    //         putItems(chest)
-    //     })
-    // })
-    // .then(()=>{
-    //     console.log(chest)
-    //     chest.close()
-    // })
-    //var chest = await bot.openChest(target);
-    //await chest.close()
-    //chest = bot.openChest(target);
-    //chest = await bot.openChest(target);
-    //console.log(chest)
-    // chest.on('open', function(){
-    //     putItems(chest)
-    //     // console.log("good")
-    //     // await putItems(chest)
-    //     // await setTimeout(() => {
-    //     //     await chest.close();
-    //     //     await startDigging()
-    //     // }, 19000)
-    // })
-    //}
 }
 
 let openedChest = false
@@ -192,7 +208,9 @@ async function putItems(chest) {
 
     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     if (number4 > 0) {
-        chest.deposit(4, null, number4)
+        try{
+            chest.deposit(4, null, number4)
+        }catch(e){}
     }
     await new Promise((resolve, reject) => setTimeout(resolve, 5000));
 
@@ -237,8 +255,8 @@ async function putItems(chest) {
     startDigging()
 }
 
-const mcData = require('minecraft-data')(bot.version)
 function botEquipPickaxe() {
+    const mcData = require('minecraft-data')(bot.version)
     bot.equip(mcData["itemsByName"].diamond_pickaxe.id, 'hand', (err) => {
         if (err) {
             //console.log("0 kilof")
@@ -275,12 +293,12 @@ function digBlock(target) {
     }
 }
 
-bot.on('error', err => console.log(err))
+// bot.on('error', err => console.log(err))
 
-bot.on('end', msg => {
-    console.log("zerwano połączenie")
-    console.log(msg)
-    bot.quit()
-    login()
-})
+// bot.on('end', msg => {
+//     console.log("zerwano połączenie")
+//     console.log(msg)
+//     bot.quit()
+//     login()
+// })
 
