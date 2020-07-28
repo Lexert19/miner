@@ -1,15 +1,22 @@
 const mineflayer = require('mineflayer')
 
-const bot = mineflayer.createBot({
-    host: 'nssv.pl',
-    port: 25565,
-    username: "aczity988",
-    version: "1.12"
-})
+login()
 
+var bot
 let first = false
-bot.on('spawn', function () {
-    const sync = () => new Promise(() => {
+function login() {
+    bot = mineflayer.createBot({
+        host: 'nssv.pl',
+        port: 25565,
+        username: "aczity988",
+        version: "1.12"
+    })
+
+    bot.on('spawn', function () {
+        if (first)
+            return 0
+
+        first = true
         setTimeout(function () {
             bot.chat("/l 1234");
         }, 3000);
@@ -18,26 +25,58 @@ bot.on('spawn', function () {
         }, 6000);
         setTimeout(() => {
             console.log("start")
-            startDigging()
+            putIntoChest()
         }, 9000)
+    });
+
+    bot.on('error', err => console.log(err))
+
+    bot.on('end', msg => {
+        console.log("zerwano połączenie")
+        console.log(msg)
+        bot.quit()
+        login()
     })
-    if (!first) {
-        first = true
-        sync()
-    }
-    //bot.setQuickBarSlot(1)
-    //bot.activateItem()
-    // setTimeout(function () {
-    //     bot.clickWindow(38, 0, 0)
-    // }, 2000);
-    // setTimeout(()=>{
-    //     console.log("start")
-    //     startDigging()
-    // },6000)
-    //bot.setControlState('forward', true)
-    //bot.setControlState('jump', true)
-    //bot.quit()
-});
+}
+
+// const bot = mineflayer.createBot({
+//     host: 'nssv.pl',
+//     port: 25565,
+//     username: "aczity988",
+//     version: "1.12"
+// })
+
+// let first = false
+// bot.on('spawn', function () {
+//     const sync = () => new Promise(() => {
+//         setTimeout(function () {
+//             bot.chat("/l 1234");
+//         }, 3000);
+//         setTimeout(function () {
+//             bot.clickWindow(38, 0, 0)
+//         }, 6000);
+//         setTimeout(() => {
+//             console.log("start")
+//             putIntoChest()
+//         }, 9000)
+//     })
+//     if (!first) {
+//         first = true
+//         sync()
+//     }
+//     //bot.setQuickBarSlot(1)
+//     //bot.activateItem()
+//     // setTimeout(function () {
+//     //     bot.clickWindow(38, 0, 0)
+//     // }, 2000);
+//     // setTimeout(()=>{
+//     //     console.log("start")
+//     //     startDigging()
+//     // },6000)
+//     //bot.setControlState('forward', true)
+//     //bot.setControlState('jump', true)
+//     //bot.quit()
+// });
 
 let block = 0
 let digged = 0
@@ -137,7 +176,7 @@ async function putIntoChest() {
 
 let openedChest = false
 async function putItems(chest) {
-    console.log("good: " + ((counter-1) * 3) + " s")
+    console.log("good: " + ((counter - 1) * 3) + " s")
     counter = 0
 
     let number4 = await bot.inventory.count(4)
@@ -192,7 +231,7 @@ async function putItems(chest) {
     }
     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    console.log("koniec"+(Date.now()/60000))
+    console.log("koniec" + (Date.now() / 60000))
     chest.close();
     openedChest = false
     startDigging()
@@ -238,8 +277,10 @@ function digBlock(target) {
 
 bot.on('error', err => console.log(err))
 
-bot.on('end', msg =>{
+bot.on('end', msg => {
     console.log("zerwano połączenie")
     console.log(msg)
-    bot.end()
+    bot.quit()
+    login()
 })
+
