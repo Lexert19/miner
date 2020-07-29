@@ -1,8 +1,12 @@
-const mineflayer = require('mineflayer')
+const mineflayer = require('mineflayer');
+const { setTimeout } = require('timers');
+const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 var connected = false
-try{
+
+try {
     connecting()
-}catch(e){}
+    connectingAfk()
+} catch (e) { }
 
 var bot
 let first = false
@@ -14,10 +18,11 @@ function login() {
         version: "1.12"
     })
 
+    navigatePlugin(bot)
+
     bot.on('spawn', function () {
-        if(first)
-        if(first)
-            return 0
+        if (first)
+                return 0
 
         connected = true
         first = true
@@ -29,15 +34,16 @@ function login() {
         }, 6000);
         setTimeout(() => {
             console.log("start")
-            bot.setControlState('jump', true)
+            //bot.setControlState('jump', true)
             //putIntoChest()
+            buying()
         }, 9000)
     });
 
     bot.on('error', err => console.log(err))
 
     bot.on('end', msg => {
-        if(connected){
+        if (connected) {
             console.log("zerwano połączenie")
             connected = false
             first = false
@@ -47,9 +53,45 @@ function login() {
     })
 }
 
-async function connecting(){
-    while(true){
-        if(connected == false){
+async function buying() {
+    bot.chat("/home")
+    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
+    bot.activateBlock(target)
+    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    bot.chat("/warp sklep2")
+    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
+    await bot.lookAt(bot.entity.position.offset(0, 0, 2))
+    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+    for (let i = 0; i < 40; i++) {
+        block = bot.blockAt(bot.entity.position.offset(0, 0, 1))
+        bot.activateBlock(block)
+        await new Promise((resolve, reject) => setTimeout(resolve, 400));
+    }
+    console.log("koniec")
+    buying()
+    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+    // var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
+    // bot.activateBlock(target)
+    // await new Promise((resolve, reject) => setTimeout(resolve, 300));
+
+    // bot.chat("/warp sklep2")
+    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+    // bot.navigate.to(bot.entity.position.offset(0, 1, 9))
+    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+
+    // for(let i=0; i<36; i++){
+    //     console.log("hmmm")
+    //     block = bot.blockAt(bot.entity.position.offset(1, 0, 0))
+    //     bot.activateBlock(target)
+    //     await new Promise((resolve, reject) => setTimeout(resolve, 300));
+    // }
+}
+
+async function connecting() {
+    while (true) {
+        if (connected == false) {
             console.log("try")
             await login()
         }
@@ -64,16 +106,16 @@ function startDigging() {
         return 0;
     } else {
         botEquipPickaxe()
-        try{
+        try {
             var target = selectBlock()
-        }catch(e){}
+        } catch (e) { }
         if (target) {
-            if(block==7){
+            if (block == 7) {
                 bot.lookAt(bot.entity.position.offset(0, 1, 1))
             }
-            setTimeout(()=>{
+            setTimeout(() => {
                 digBlock(target)
-            },200)
+            }, 200)
         }
     }
 }
@@ -106,29 +148,29 @@ function selectBlock() {
     }
 }
 
-function selectBlock5(){
-    if(block == 0){
+function selectBlock5() {
+    if (block == 0) {
         block = 1
         return bot.blockAt(bot.entity.position.offset(-1, 1, 0))
-    }else if(block == 1){
+    } else if (block == 1) {
         block = 2
         return bot.blockAt(bot.entity.position.offset(-2, 1, 0))
-    }else if(block == 2){
+    } else if (block == 2) {
         block = 3
         return bot.blockAt(bot.entity.position.offset(-3, 1, 0))
-    }else if(block == 3){
+    } else if (block == 3) {
         block = 7
         return bot.blockAt(bot.entity.position.offset(-4, 1, 0))
-    }else if(block == 7){
+    } else if (block == 7) {
         block = 8
         return bot.blockAt(bot.entity.position.offset(0, 1, 1))
-    }else if(block == 8){
+    } else if (block == 8) {
         block = 9
         return bot.blockAt(bot.entity.position.offset(0, 1, 2))
-    }else if(block == 9){
+    } else if (block == 9) {
         block = 10
         return bot.blockAt(bot.entity.position.offset(0, 1, 3))
-    }else if(block == 10){
+    } else if (block == 10) {
         block = 0
         return bot.blockAt(bot.entity.position.offset(0, 1, 4))
     }
@@ -144,9 +186,9 @@ async function putIntoChest() {
     await chest.on('open', function () {
         if (openedChest == false) {
             openedChest = true
-            try{
+            try {
                 putItems(chest)
-            }catch(e){
+            } catch (e) {
                 //openedChest = false
             }
         }
@@ -163,62 +205,68 @@ async function putItems(chest) {
     console.log("good: " + ((counter - 1) * 3) + " s")
     counter = 0
 
-    let number4 = await bot.inventory.count(4)
-    let number1 = await bot.inventory.count(1)
-    let number351 = await bot.inventory.count(351)
-
-    let number16 = await bot.inventory.count(16)
-    let number15 = await bot.inventory.count(15)
-    let number14 = await bot.inventory.count(14)
-
-    let number264 = await bot.inventory.count(264)
-    let number73 = await bot.inventory.count(73)
-
-    await new Promise((resolve, reject) => setTimeout(resolve, 1200));
-    if (number4 > 0) {
-        try{
-            chest.deposit(4, null, number4)
-        }catch(e){}
+    for (let i = 0; i < 0; i++) {
+        bot.clickWindow((i + 54), 0, 0)
+        bot.clickWindow(i, 0, 0)
+        await new Promise((resolve, reject) => setTimeout(resolve, 500));
     }
-    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
 
-    if (number1 > 0) {
-        chest.deposit(1, null, number1)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    // let number4 = await bot.inventory.count(4)
+    // let number1 = await bot.inventory.count(1)
+    // let number351 = await bot.inventory.count(351)
 
-    if (number351 > 0) {
-        chest.deposit(351, null, number351)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // let number16 = await bot.inventory.count(16)
+    // let number15 = await bot.inventory.count(15)
+    // let number14 = await bot.inventory.count(14)
 
-    if (number16 > 0) {
-        chest.deposit(16, null, number16)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // let number264 = await bot.inventory.count(264)
+    // let number73 = await bot.inventory.count(73)
 
-    if (number15 > 0) {
-        chest.deposit(15, null, number15)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1200));
+    // if (number4 > 0) {
+    //     try{
+    //         chest.deposit(4, null, number4)
+    //     }catch(e){}
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 5000));
 
-    if (number14 > 0) {
-        chest.deposit(14, null, number14)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // if (number1 > 0) {
+    //     chest.deposit(1, null, number1)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 5000));
 
-    if (number264 > 0) {
-        chest.deposit(264, null, number264)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // if (number351 > 0) {
+    //     chest.deposit(351, null, number351)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    if (number73 > 0) {
-        chest.deposit(73, null, number73)
-    }
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // if (number16 > 0) {
+    //     chest.deposit(16, null, number16)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    // if (number15 > 0) {
+    //     chest.deposit(15, null, number15)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    // if (number14 > 0) {
+    //     chest.deposit(14, null, number14)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    // if (number264 > 0) {
+    //     chest.deposit(264, null, number264)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+
+    // if (number73 > 0) {
+    //     chest.deposit(73, null, number73)
+    // }
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
     let date = new Date()
-    console.log("koniec: " +date.getHours()+":"+date.getMinutes())
+    console.log("koniec: " + date.getHours() + ":" + date.getMinutes())
     chest.close();
     bot.chat("/repair all")
     openedChest = false
@@ -272,3 +320,77 @@ function digBlock(target) {
 //     login()
 // })
 
+var afk
+var connectedAfk = false
+var firstAfk = false
+function afk(){
+    // afk = mineflayer.createBot({
+    //     host: 'nssv.pl',
+    //     port: 25565,
+    //     username: "wspanialy70",
+    //     version: "1.12"
+    // })
+
+    // afk.on('spawn',()=>{
+    //     if(firstAfk)
+    //         return 0
+    // })
+
+    // afk.on('end', msg => {
+    //     if (connectedAfk) {
+    //         console.log("zerwano połączenie")
+    //         connectedAfk = false
+    //         firstAfk = false
+    //         afk.quit()
+    //     }
+    // })
+}
+
+async function connectingAfk() {
+    while (true) {
+        if (connectedAfk == false) {
+            console.log("try")
+            await loginAfk()
+        }
+        await new Promise((resolve, reject) => setTimeout(resolve, 7000));
+    }
+}
+
+function loginAfk(){
+    afk = mineflayer.createBot({
+        host: 'nssv.pl',
+        port: 25565,
+        username: "koblator4000",
+        version: "1.12"
+    })
+
+    afk.on('spawn', function () {
+        if (firstAfk)
+            return 0
+
+        connectedAfk = true
+        firstAfk = true
+        setTimeout(function () {
+            afk.chat("/l chuj123");
+        }, 3000);
+        setTimeout(function () {
+            afk.clickWindow(38, 0, 0)
+        }, 6000);
+        setTimeout(() => {
+            console.log("start afk")
+            afk.setControlState('jump', true)
+        }, 9000)
+    });
+
+    afk.on('error', err => console.log(err))
+
+    afk.on('end', msg => {
+        if (connectedAfk) {
+            console.log("zerwano połączenie")
+            connectedAfk = false
+            firstAfk = false
+            afk.quit()
+        }
+        //login()
+    })
+}
