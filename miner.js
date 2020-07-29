@@ -55,19 +55,19 @@ function login() {
 
 async function buying() {
     bot.chat("/home")
-    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 6000));
     var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
     bot.activateBlock(target)
-    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 6000));
     bot.chat("/warp sklep2")
-    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 6000));
     await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
     await bot.lookAt(bot.entity.position.offset(0, 0, 2))
-    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 4000));
     for (let i = 0; i < 40; i++) {
         block = bot.blockAt(bot.entity.position.offset(0, 0, 1))
         bot.activateBlock(block)
-        await new Promise((resolve, reject) => setTimeout(resolve, 400));
+        await new Promise((resolve, reject) => setTimeout(resolve, 500));
     }
     console.log("koniec")
     buying()
