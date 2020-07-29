@@ -86,6 +86,7 @@ async function buying() {
 
         if(bot.entity.position.y == 128){
             await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
+            await new Promise((resolve, reject) => setTimeout(resolve, 1000));
         }
         if(walking==false)
             break
