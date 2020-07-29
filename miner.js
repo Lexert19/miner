@@ -53,7 +53,13 @@ function login() {
     })
 }
 
+bot.navigation.on("arrived",()=>{
+    walking = false
+})
+
+var walking = true
 async function buying() {
+    walking = true
     await bot.chat("/home")
     await new Promise((resolve, reject) => setTimeout(resolve, 6000));
 
@@ -77,10 +83,12 @@ async function buying() {
     }
     //await bot.chat("/warp sklep2")
     while(true){
+
         if(bot.entity.position.y == 128){
             await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
-            break;
         }
+        if(walking==false)
+            break
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
     while(true){
@@ -94,37 +102,10 @@ async function buying() {
         } 
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
-    // var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
-    // bot.activateBlock(target)
-    // await new Promise((resolve, reject) => setTimeout(resolve, 6000));
-    // bot.chat("/warp sklep2")
-    // await new Promise((resolve, reject) => setTimeout(resolve, 6000));
-    // await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
-    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-    // for (let i = 0; i < 60; i++) {
-    //     block = bot.blockAt(bot.entity.position.offset(0, 0, 1))
-    //     bot.activateBlock(block)
-    //     await new Promise((resolve, reject) => setTimeout(resolve, 300));
-    // }
+
     let date = new Date()
     console.log("koniec: "+date.getHours()+":"+date.getMinutes())
     buying()
-    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-    // var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
-    // bot.activateBlock(target)
-    // await new Promise((resolve, reject) => setTimeout(resolve, 300));
-
-    // bot.chat("/warp sklep2")
-    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-    // bot.navigate.to(bot.entity.position.offset(0, 1, 9))
-    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-
-    // for(let i=0; i<36; i++){
-    //     console.log("hmmm")
-    //     block = bot.blockAt(bot.entity.position.offset(1, 0, 0))
-    //     bot.activateBlock(target)
-    //     await new Promise((resolve, reject) => setTimeout(resolve, 300));
-    // }
 }
 
 async function connecting() {
