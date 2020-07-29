@@ -62,14 +62,14 @@ async function buying() {
     bot.chat("/warp sklep2")
     await new Promise((resolve, reject) => setTimeout(resolve, 6000));
     await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
-    await bot.lookAt(bot.entity.position.offset(0, 0, 2))
     await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 60; i++) {
         block = bot.blockAt(bot.entity.position.offset(0, 0, 1))
         bot.activateBlock(block)
-        await new Promise((resolve, reject) => setTimeout(resolve, 500));
+        await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
-    console.log("koniec")
+    let date = new Date()
+    console.log("koniec: "+date.getHours()+":"+date.getMinutes())
     buying()
     // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
     // var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
