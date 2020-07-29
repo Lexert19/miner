@@ -16,6 +16,7 @@ function login() {
 
     bot.on('spawn', function () {
         if(first)
+        if(first)
             return 0
 
         connected = true
@@ -28,7 +29,8 @@ function login() {
         }, 6000);
         setTimeout(() => {
             console.log("start")
-            putIntoChest()
+            bot.setControlState('jump', true)
+            //putIntoChest()
         }, 9000)
     });
 
@@ -55,73 +57,6 @@ async function connecting(){
     }
 }
 
-// var working = false
-// async function tryLogin(){
-//     if(working==true)
-//         return 0
-
-//     while(true){
-//         if(connected==false){
-//             working = true
-//             console.log("try")
-//             login()
-//         }
-//         await new Promise((resolve, reject) => setTimeout(resolve, 3000));
-//     }
-//     try{
-//         if(connected==false){
-//             console.log("try")
-//             login()
-//             setTimeout(()=>{
-//                 tryLogin()
-//             },12000)
-//             //tryLogin()
-//         }
-//     }catch(e){
-//         //console.log(e)
-//         //tryLogin()
-//     }
-// }
-
-// const bot = mineflayer.createBot({
-//     host: 'nssv.pl',
-//     port: 25565,
-//     username: "aczity988",
-//     version: "1.12"
-// })
-
-// let first = false
-// bot.on('spawn', function () {
-//     const sync = () => new Promise(() => {
-//         setTimeout(function () {
-//             bot.chat("/l 1234");
-//         }, 3000);
-//         setTimeout(function () {
-//             bot.clickWindow(38, 0, 0)
-//         }, 6000);
-//         setTimeout(() => {
-//             console.log("start")
-//             putIntoChest()
-//         }, 9000)
-//     })
-//     if (!first) {
-//         first = true
-//         sync()
-//     }
-//     //bot.setQuickBarSlot(1)
-//     //bot.activateItem()
-//     // setTimeout(function () {
-//     //     bot.clickWindow(38, 0, 0)
-//     // }, 2000);
-//     // setTimeout(()=>{
-//     //     console.log("start")
-//     //     startDigging()
-//     // },6000)
-//     //bot.setControlState('forward', true)
-//     //bot.setControlState('jump', true)
-//     //bot.quit()
-// });
-
 let block = 0
 let digged = 0
 function startDigging() {
@@ -133,7 +68,12 @@ function startDigging() {
             var target = selectBlock()
         }catch(e){}
         if (target) {
-            digBlock(target)
+            if(block==7){
+                bot.lookAt(bot.entity.position.offset(0, 1, 1))
+            }
+            setTimeout(()=>{
+                digBlock(target)
+            },200)
         }
     }
 }
@@ -163,6 +103,34 @@ function selectBlock() {
     } else if (block == 7) {
         block = 0
         return bot.blockAt(bot.entity.position.offset(1, 0, -1))
+    }
+}
+
+function selectBlock5(){
+    if(block == 0){
+        block = 1
+        return bot.blockAt(bot.entity.position.offset(-1, 1, 0))
+    }else if(block == 1){
+        block = 2
+        return bot.blockAt(bot.entity.position.offset(-2, 1, 0))
+    }else if(block == 2){
+        block = 3
+        return bot.blockAt(bot.entity.position.offset(-3, 1, 0))
+    }else if(block == 3){
+        block = 7
+        return bot.blockAt(bot.entity.position.offset(-4, 1, 0))
+    }else if(block == 7){
+        block = 8
+        return bot.blockAt(bot.entity.position.offset(0, 1, 1))
+    }else if(block == 8){
+        block = 9
+        return bot.blockAt(bot.entity.position.offset(0, 1, 2))
+    }else if(block == 9){
+        block = 10
+        return bot.blockAt(bot.entity.position.offset(0, 1, 3))
+    }else if(block == 10){
+        block = 0
+        return bot.blockAt(bot.entity.position.offset(0, 1, 4))
     }
 }
 
@@ -206,7 +174,7 @@ async function putItems(chest) {
     let number264 = await bot.inventory.count(264)
     let number73 = await bot.inventory.count(73)
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1200));
     if (number4 > 0) {
         try{
             chest.deposit(4, null, number4)
@@ -249,8 +217,10 @@ async function putItems(chest) {
     }
     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
 
-    console.log("koniec" + (Date.now() / 60000))
+    let date = new Date()
+    console.log("koniec: " +date.getHours()+":"+date.getMinutes())
     chest.close();
+    bot.chat("/repair all")
     openedChest = false
     startDigging()
 }
