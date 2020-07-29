@@ -53,7 +53,7 @@ function login() {
     })
 }
 
-bot.navigation.on("arrived",()=>{
+bot.navigate.on("arrived",()=>{
     walking = false
 })
 
