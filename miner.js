@@ -54,20 +54,58 @@ function login() {
 }
 
 async function buying() {
-    bot.chat("/home")
+    await bot.chat("/home")
     await new Promise((resolve, reject) => setTimeout(resolve, 6000));
-    var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
-    bot.activateBlock(target)
-    await new Promise((resolve, reject) => setTimeout(resolve, 6000));
-    bot.chat("/warp sklep2")
-    await new Promise((resolve, reject) => setTimeout(resolve, 6000));
-    await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
-    await new Promise((resolve, reject) => setTimeout(resolve, 4000));
-    for (let i = 0; i < 60; i++) {
-        block = bot.blockAt(bot.entity.position.offset(0, 0, 1))
-        bot.activateBlock(block)
+
+    while(true){
+        if(bot.entity.position.y == 30){
+            var target = await bot.blockAt(bot.entity.position.offset(1, 0, 0))
+            await bot.activateBlock(target)
+            await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+            break;
+        }
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
+    while(true){
+        if(bot.entity.position.y == 128){
+            break
+        }
+        else{
+            await bot.chat("/warp sklep2")
+            await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+        }
+    }
+    //await bot.chat("/warp sklep2")
+    while(true){
+        if(bot.entity.position.y == 128){
+            await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
+            break;
+        }
+        await new Promise((resolve, reject) => setTimeout(resolve, 300));
+    }
+    while(true){
+        if(bot.entity.position.y == 129 && Math.floor(bot.entity.position.x) == -928){
+            for (let i = 0; i < 42; i++) {
+                block = await bot.blockAt(bot.entity.position.offset(0, 0, 1))
+                await bot.activateBlock(block)
+                await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+            }
+            break;
+        } 
+        await new Promise((resolve, reject) => setTimeout(resolve, 300));
+    }
+    // var target = bot.blockAt(bot.entity.position.offset(1, 0, 0))
+    // bot.activateBlock(target)
+    // await new Promise((resolve, reject) => setTimeout(resolve, 6000));
+    // bot.chat("/warp sklep2")
+    // await new Promise((resolve, reject) => setTimeout(resolve, 6000));
+    // await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
+    // await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+    // for (let i = 0; i < 60; i++) {
+    //     block = bot.blockAt(bot.entity.position.offset(0, 0, 1))
+    //     bot.activateBlock(block)
+    //     await new Promise((resolve, reject) => setTimeout(resolve, 300));
+    // }
     let date = new Date()
     console.log("koniec: "+date.getHours()+":"+date.getMinutes())
     buying()
