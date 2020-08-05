@@ -390,4 +390,14 @@ function loginAfk(){
             afk.quit()
         }
     })
+    bot.on('quit', msg => {
+        if (connected) {
+            console.log(msg)
+            console.log("zerwano połączenie")
+            connected = false
+            first = false
+            bot.quit()
+        }
+        //login()
+    })
 }
