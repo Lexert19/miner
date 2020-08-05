@@ -75,13 +75,14 @@ async function buying() {
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
     while(true){
-        if(bot.entity.position.y == 130){
-            break
-        }
-        else{
-            await bot.chat("/warp sklep3")
-            await new Promise((resolve, reject) => setTimeout(resolve, 5000));
-        }
+        try{
+            if(bot.entity.position.y == 130){
+                break
+            } else{
+                await bot.chat("/warp sklep3")
+                await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+            }
+        }catch(e){}
     }
 
     while(true){
