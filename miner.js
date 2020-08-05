@@ -353,28 +353,6 @@ function digBlock(target) {
 var afk
 var connectedAfk = false
 var firstAfk = false
-function afk(){
-    // afk = mineflayer.createBot({
-    //     host: 'nssv.pl',
-    //     port: 25565,
-    //     username: "wspanialy70",
-    //     version: "1.12"
-    // })
-
-    // afk.on('spawn',()=>{
-    //     if(firstAfk)
-    //         return 0
-    // })
-
-    // afk.on('end', msg => {
-    //     if (connectedAfk) {
-    //         console.log("zerwano połączenie")
-    //         connectedAfk = false
-    //         firstAfk = false
-    //         afk.quit()
-    //     }
-    // })
-}
 
 async function connectingAfk() {
     while (true) {
@@ -409,6 +387,8 @@ function loginAfk(){
         setTimeout(() => {
             console.log("start afk")
             try{
+                afk.setControlState('jump', true)
+                afk.setControlState('jump', true)
                 afk.setControlState('jump', true)
             }catch(e){
                 console.log("afk")
