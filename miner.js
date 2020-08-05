@@ -87,6 +87,7 @@ async function buying() {
                 await new Promise((resolve, reject) => setTimeout(resolve, 5000));
             }
         }catch(e){
+            await new Promise((resolve, reject) => setTimeout(resolve, 500));
             console.log(e)
         }
     }
