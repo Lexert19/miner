@@ -61,37 +61,40 @@ var walking = true
 async function buying() {
     walking = true
     await bot.chat("/home")
-    await new Promise((resolve, reject) => setTimeout(resolve, 6000));
 
     while(true){
         if(bot.entity.position.y == 30){
-            var target = await bot.blockAt(bot.entity.position.offset(1, 0, 0))
-            await bot.activateBlock(target)
-            await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-            break;
+            var target 
+            try{
+                target = await bot.blockAt(bot.entity.position.offset(1, 0, 0))
+                await bot.activateBlock(target)
+                await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+                break
+            }catch(e){}
         }
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
     while(true){
-        if(bot.entity.position.y == 128){
+        if(bot.entity.position.y == 130){
             break
         }
         else{
-            await bot.chat("/warp sklep2")
+            await bot.chat("/warp sklep3")
             await new Promise((resolve, reject) => setTimeout(resolve, 5000));
         }
     }
-    //await bot.chat("/warp sklep2")
+
     while(true){
 
-        if(bot.entity.position.y == 128){
-            await bot.navigate.to(bot.entity.position.offset(2, 1, 8))
+        if(bot.entity.position.y == 130){
+            await bot.navigate.to(bot.entity.position.offset(-4, -1, 8))
             await new Promise((resolve, reject) => setTimeout(resolve, 1000));
         }
         if(walking==false)
             break
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
+
     while(true){
         if(bot.entity.position.y == 129 && Math.floor(bot.entity.position.x) == -928){
             for (let i = 0; i < 42; i++) {
