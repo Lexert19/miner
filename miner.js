@@ -66,15 +66,24 @@ async function buying() {
 
     while(true){
         if(bot.entity.position.y == 30){
-            var target 
-            try{
+            var target
+            while (true) {
                 target = await bot.blockAt(bot.entity.position.offset(1, 0, 0))
-                await bot.activateBlock(target)
-                await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-                break
-            }catch(e){
-                console.log(e)
+                if(target!==null){
+                    await bot.activateBlock(target)
+                    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+                    break
+                }
             }
+            break
+            // try{
+            //     target = await bot.blockAt(bot.entity.position.offset(1, 0, 0))
+            //     await bot.activateBlock(target)
+            //     await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+            //     break
+            // }catch(e){
+            //     console.log(e)
+            // }
         }
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
@@ -376,7 +385,7 @@ function loginAfk(){
         }, 4000);
         setTimeout(() => {
             console.log("start afk")
-            afk.setControlState("jump", true)
+            //afk.setControlState("jump", true)
         }, 7000)
     });
 
