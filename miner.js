@@ -235,11 +235,11 @@ async function putItems(chest) {
     console.log("good: " + ((counter - 1) * 3) + " s")
     counter = 0
 
-    for (let i = 0; i < 0; i++) {
-        bot.clickWindow((i + 54), 0, 0)
-        bot.clickWindow(i, 0, 0)
-        await new Promise((resolve, reject) => setTimeout(resolve, 500));
-    }
+    // for (let i = 0; i < 0; i++) {
+    //     bot.clickWindow((i + 54), 0, 0)
+    //     bot.clickWindow(i, 0, 0)
+    //     await new Promise((resolve, reject) => setTimeout(resolve, 500));
+    // }
 
     // let number4 = await bot.inventory.count(4)
     // let number1 = await bot.inventory.count(1)
@@ -341,19 +341,9 @@ function digBlock(target) {
     }
 }
 
-// bot.on('error', err => console.log(err))
-
-// bot.on('end', msg => {
-//     console.log("zerwano połączenie")
-//     console.log(msg)
-//     bot.quit()
-//     login()
-// })
-
 var afk
 var connectedAfk = false
 var firstAfk = false
-
 async function connectingAfk() {
     while (true) {
         if (connectedAfk == false) {
@@ -386,14 +376,7 @@ function loginAfk(){
         }, 4000);
         setTimeout(() => {
             console.log("start afk")
-            try{
-                afk.setControlState('jump', true)
-                afk.setControlState('jump', true)
-                afk.setControlState('jump', true)
-            }catch(e){
-                console.log("afk")
-                console.log(e)
-            }
+            afk.setControlState('jump', true)
         }, 7000)
     });
 
@@ -406,6 +389,5 @@ function loginAfk(){
             firstAfk = false
             afk.quit()
         }
-        //login()
     })
 }
