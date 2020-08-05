@@ -402,14 +402,14 @@ function loginAfk(){
         firstAfk = true
         setTimeout(function () {
             afk.chat("/l chuj123");
-        }, 3000);
+        }, 1000);
         setTimeout(function () {
             afk.clickWindow(38, 0, 0)
-        }, 6000);
+        }, 4000);
         setTimeout(() => {
             console.log("start afk")
             afk.setControlState('jump', true)
-        }, 9000)
+        }, 7000)
     });
 
     afk.on('error', err => console.log(err))
