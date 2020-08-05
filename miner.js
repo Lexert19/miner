@@ -385,8 +385,8 @@ function loginAfk(){
         }, 4000);
         setTimeout(() => {
             console.log("start afk")
-            //afk.setControlState("jump", true)
-        }, 7000)
+            afk.setControlState("jump", true)
+        }, 8000)
     });
 
     afk.on('error', err => console.log(err))
