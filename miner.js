@@ -6,7 +6,9 @@ var connected = false
 try {
     connecting()
     connectingAfk()
-} catch (e) { }
+} catch (e) { 
+    console.log(e)
+}
 
 var bot
 let first = false
@@ -86,9 +88,7 @@ async function buying() {
     }
 
     while(true){
-
         if(bot.entity.position.y == 130){
-            console.log("go")
             await bot.navigate.to(bot.entity.position.offset(-4, -1, 8))
             await new Promise((resolve, reject) => setTimeout(resolve, 1000));
         }
