@@ -72,7 +72,9 @@ async function buying() {
                 await bot.activateBlock(target)
                 await new Promise((resolve, reject) => setTimeout(resolve, 1000));
                 break
-            }catch(e){}
+            }catch(e){
+                console.log(e)
+            }
         }
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
@@ -84,7 +86,9 @@ async function buying() {
                 await bot.chat("/warp sklep3")
                 await new Promise((resolve, reject) => setTimeout(resolve, 5000));
             }
-        }catch(e){}
+        }catch(e){
+            console.log(e)
+        }
     }
 
     while(true){
