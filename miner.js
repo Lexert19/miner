@@ -376,7 +376,9 @@ function loginAfk(){
         }, 4000);
         setTimeout(() => {
             console.log("start afk")
-            afk.setControlState('jump', true)
+            afk.setControlState("jump", true)
+            afk.setControlState("jump", true)
+            afk.setControlState("jump", true)
         }, 7000)
     });
 
@@ -389,15 +391,5 @@ function loginAfk(){
             firstAfk = false
             afk.quit()
         }
-    })
-    bot.on('quit', msg => {
-        if (connected) {
-            console.log(msg)
-            console.log("zerwano połączenie")
-            connected = false
-            first = false
-            bot.quit()
-        }
-        //login()
     })
 }
