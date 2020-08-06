@@ -4,7 +4,7 @@ const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 var connected = false
 
 try {
-    connecting()
+    //connecting()
     connectingAfk()
 } catch (e) { 
     console.log(e)
