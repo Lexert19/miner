@@ -49,8 +49,9 @@ function loginAfk(){
 
     afk.on('error', err => console.log(err))
 
-    afk.on('end', msg => {
+    afk.on('quit', msg => {
         if (connectedAfk) {
+            console.log(msg)
             console.log("zerwano połączenie")
             connectedAfk = false
             firstAfk = false
