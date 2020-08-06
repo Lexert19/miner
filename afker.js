@@ -25,7 +25,8 @@ function loginAfk(){
         host: 'nssv.pl',
         port: 25565,
         username: "koblator4000",
-        version: "1.12"
+        version: "1.12",
+        viewDistance: "tiny",
     })
 
     afk.on('spawn', function () {
