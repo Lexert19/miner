@@ -36,10 +36,10 @@ function loginAfk(){
         firstAfk = true
         setTimeout(function () {
             afk.chat("/l chuj123");
-        }, 1000);
+        }, 3000);
         setTimeout(function () {
             afk.clickWindow(38, 0, 0)
-        }, 4000);
+        }, 7000);
         setTimeout(() => {
             console.log("start afk")
             afk.setControlState("jump", true)
