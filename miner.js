@@ -28,7 +28,7 @@ function login() {
         connected = true
         first = true
         setTimeout(function () {
-            //bot.chat("/l chuj123");
+            bot.chat("/l chuj123");
             bot.activateItem()
             console.log("login")
         }, 3000);
