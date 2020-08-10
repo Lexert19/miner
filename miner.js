@@ -38,9 +38,7 @@ function login() {
         }, 6000);
         setTimeout(() => {
             console.log("start")
-            startDigging()
-            //bot.setControlState('jump', true)
-            //putIntoChest()
+            putIntoChest()
         }, 10000)
     });
 
