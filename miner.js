@@ -58,7 +58,11 @@ async function connecting() {
     while (true) {
         if (connected == false) {
             console.log("try")
-            await login()
+            try{
+                await login()
+            }catch(e){
+                await login()
+            }
         }
         await new Promise((resolve, reject) => setTimeout(resolve, 7000));
     }
