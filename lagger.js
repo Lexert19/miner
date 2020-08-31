@@ -20,7 +20,6 @@ function login() {
         port: 25565,
         username: "lagger"+id,
         version: "1.12.2",
-        viewDistance: "tiny",
         logErrors: true,
     })
 
@@ -53,7 +52,7 @@ async function connecting() {
                 //await login()
             }
         }
-        await new Promise((resolve, reject) => setTimeout(resolve, 333000));
+        await new Promise((resolve, reject) => setTimeout(resolve, 33333000));
     }
 }
 
