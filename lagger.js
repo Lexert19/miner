@@ -25,15 +25,10 @@ function login() {
     })
 
     bot.on('spawn', function () {
-        if (first)
-            return 0
-
-        connected = true
-        first = true
         setTimeout(function () {
             startLagging()
             console.log("start")
-        }, 3000);
+        }, 5000);
     });
 
     bot.on('error', err => console.log(err))
@@ -55,10 +50,10 @@ async function connecting() {
             try {
                 await login()
             } catch (e) {
-                await login()
+                //await login()
             }
         }
-        await new Promise((resolve, reject) => setTimeout(resolve, 5000));
+        await new Promise((resolve, reject) => setTimeout(resolve, 333000));
     }
 }
 
@@ -71,14 +66,14 @@ async function startLagging() {
         lag = 0
         console.log("lag: " + lagCounter)
     }
-    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     await bot.chat("/tp -260 70 260")
     // await bot._client.write('block_dig', {
     //     status: 0, // start digging
     //     location: new Vec3(0, 0, 0),
     //     face: 1 // hard coded to always dig from the top
     // })
-    await new Promise((resolve, reject) => setTimeout(resolve, 3000));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     await bot.chat("/tp 4000 70 4000")
     // await bot._client.write('block_dig', {
     //     status: 2, // finish digging
