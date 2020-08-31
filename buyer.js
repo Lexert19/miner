@@ -5,7 +5,7 @@ var connected = false
 
 try {
     connecting()
-} catch (e) { 
+} catch (e) {
     console.log(e)
 }
 
@@ -25,7 +25,7 @@ function login() {
 
     bot.on('spawn', function () {
         if (first)
-                return 0
+            return 0
 
         connected = true
         first = true
@@ -73,22 +73,22 @@ async function buying() {
     await sell();
 
     let date = new Date()
-    console.log("koniec: "+date.getHours()+":"+date.getMinutes())
+    console.log("koniec: " + date.getHours() + ":" + date.getMinutes())
     buying()
 }
 
-async function buy(){
-    while(true){
-        if(bot.entity.position.y == 30){
+async function buy() {
+    while (true) {
+        if (bot.entity.position.y == 30) {
             var target
             while (true) {
-                try{
+                try {
                     target = await bot.blockAt(bot.entity.position.offset(1, 0, 0))
-                    if(target.name === "wall_sign"){
+                    if (target.name === "wall_sign") {
                         await bot.activateBlock(target)
                         break
                     }
-                }catch(e){}
+                } catch (e) { }
                 await new Promise((resolve, reject) => setTimeout(resolve, 500));
             }
             break
@@ -97,16 +97,16 @@ async function buy(){
     }
 }
 
-async function sklep3(){
-    while(true){
-        try{
-            if(bot.entity.position.y == 130)
+async function sklep3() {
+    while (true) {
+        try {
+            if (bot.entity.position.y == 130)
                 break
-            if(bot.entity.position.y == 30){
+            if (bot.entity.position.y == 30) {
                 bot.chat("/warp sklep3")
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000));
-            } 
-        }catch(e){
+            }
+        } catch (e) {
             console.log(e)
         }
         await new Promise((resolve, reject) => setTimeout(resolve, 500));
@@ -114,41 +114,55 @@ async function sklep3(){
 }
 
 var walking = false
-async function go(){
+async function go() {
     walking = false
-    while(true){
-        try{
-            if(bot.entity.position.y == 130 && walking == false){
+    while (true) {
+        try {
+            if (bot.entity.position.y == 130 && walking == false) {
                 walking = true
                 await bot.navigate.to(bot.entity.position.offset(-4, -1, 8))
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000));
             }
-            if(bot.entity.position.y == 129 && Math.floor(bot.entity.position.x) == -928)
+            if (bot.entity.position.y == 129 && Math.floor(bot.entity.position.x) == -928)
                 break
-        }catch(e){}
+        } catch (e) { }
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
 }
 
-async function sell(){
-    while(true){
-        if(bot.entity.position.y == 129 && Math.floor(bot.entity.position.x) == -928){
-            for (let i = 0; i < 80; i++) {
+async function sell() {
+    while (true) {
+        if (bot.entity.position.y == 129 && Math.floor(bot.entity.position.x) == -928) {
+            for (let i = 0; i < 40; i++) {
                 block = await bot.blockAt(bot.entity.position.offset(0, 0, 1))
-                await bot.activateBlock(block)
+                //await bot.activateBlock(block)
+                await activateBlock(block)
                 await new Promise((resolve, reject) => setTimeout(resolve, 500));
             }
             break;
-        } 
+        }
         await new Promise((resolve, reject) => setTimeout(resolve, 300));
     }
 
 }
 
-bot.navigate.on("arrived",()=>{
+function activateBlock(block) {
+    bot.lookAt(block.position.offset(0.5, 0.5, 0.5), false, () => {
+        bot._client.write('block_place', {
+            location: block.position,
+            direction: 1,
+            heldItem: 0,
+            cursorX: 8,
+            cursorY: 8,
+            cursorZ: 8
+        })
+    })
+}
+
+bot.navigate.on("arrived", () => {
     walking = false
 })
 
-bot.navigate.on('interrupted', function() {
+bot.navigate.on('interrupted', function () {
     console.log("interrupted")
 });
