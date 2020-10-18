@@ -38,6 +38,8 @@ function login() {
             bot.clickWindow(25, 0, 0)
         }, 6000);
         setTimeout(() => {
+            //bot.setControlState('sprint', true)
+            //bot.setControlState('jump', true)
             console.log("start")
             lagging()
             //putIntoChest()
@@ -57,12 +59,10 @@ function login() {
 }
 
 async function lagging(){
-    await new Promise((resolve, reject) => setTimeout(resolve, 1200));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1500));
     await bot.chat("/p visit 0plinska0")
-    await bot.lookAt(new Vec3(-1, 100, -1))
-    await new Promise((resolve, reject) => setTimeout(resolve, 1200));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1500));
     await bot.chat("/p visit filipkoxpl")
-    await bot.lookAt(new Vec3(1, 100, 1))
     await lagging()
 }
 

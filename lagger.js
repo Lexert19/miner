@@ -16,16 +16,16 @@ let counter = 0
 function login() {
     id = Math.floor(Math.random() * (100 -0 + 1) + 0)
     bot = mineflayer.createBot({
-        host: '192.168.0.116',
+        host: 'WorldofMagic.pl',
         port: 25565,
-        username: "lagger"+id,
+        username: "lagger",
         version: "1.12.2",
         logErrors: true,
     })
 
     bot.on('spawn', function () {
         setTimeout(function () {
-            startLagging()
+            //startLagging()
             console.log("start")
         }, 5000);
     });
