@@ -15,7 +15,8 @@ function login() {
         host: "192.168.0.121",
         port: 25565,
         username: "lagger123",
-        //version: false,
+        version: "1.12.2",
+        viewDistance: "tiny",
         logErrors: true,
     })
 
