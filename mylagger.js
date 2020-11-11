@@ -54,10 +54,10 @@ async function connecting() {
 
 async function startLagging() {
  
-    await new Promise((resolve, reject) => setTimeout(resolve, 400));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     await bot.chat("/tp -7000 80 -7000")
    
-    await new Promise((resolve, reject) => setTimeout(resolve, 400));
+    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     await bot.chat("/tp 7000 70 7000")
   
     await startLagging()
