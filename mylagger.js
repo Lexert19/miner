@@ -63,7 +63,7 @@ async function startLagging() {
 
     }
 
-    await new Promise((resolve, reject) => setTimeout(resolve, 500));
+    await new Promise((resolve, reject) => setTimeout(resolve, 200));
     // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
     // await bot.chat("/tp -7000 80 -7000")
    
@@ -76,9 +76,8 @@ async function startLagging() {
 
 async function openChest(){
     bot.lookAt(bot.entity.position.offset(0, 0, 0))
-    var target = await bot.blockAt(bot.entity.position.offset(0, 0, 0))
-    var chest = await bot.openChest(target)
-    chest = await bot.openChest(target);
+    var target = bot.blockAt(bot.entity.position.offset(0, 0, 0))
+    var chest = bot.openChest(target)
     await chest.on('open', function () {
         chest.close();
     })
