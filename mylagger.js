@@ -58,23 +58,10 @@ async function connecting() {
 
 async function startLagging() {
     try{
-        var target = await bot.blockAt(bot.entity.position.offset(-2, 0, 0))
-        activateBlock(target);
+       openChest();
     }catch(e){
 
     }
-   
-
-    // await chest.on('open', function () {
-    //     if (openedChest == false) {
-    //         openedChest = true
-    //         try {
-    //             putItems(chest)
-    //         } catch (e) {
-    //             //openedChest = false
-    //         }
-    //     }
-    // })
 
     await new Promise((resolve, reject) => setTimeout(resolve, 500));
     // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
@@ -88,64 +75,11 @@ async function startLagging() {
 
 
 openChest = ()=>{
-    bot._client.write('block_place', {
-        location: bot.entity.position.offset(0, 0, 0),
-        direction: 1,
-        hand: 0,
-        cursorX: 0.5,
-        cursorY: 0.5,
-        cursorZ: 0.5,
-        insideBlock: false,
-      })
+    bot.lookAt(bot.entity.position.offset(0, 0, 0))
+    var target = await bot.blockAt(bot.entity.position.offset(0, 0, 0))
+    var chest = await bot.openChest(target)
+    chest = await bot.openChest(target);
+    await chest.on('open', function () {
+        chest.close();
+    })
 }
-
-function activateBlock (block, cb) {
-    // TODO: tell the server that we are not sneaking while doing this
-      // place block message
-      if (bot.supportFeature('blockPlaceHasHeldItem')) {
-        console.log(4);
-        bot._client.write('block_place', {
-          location: bot.entity.position.offset(0, 0, 0),
-          direction: 1,
-          heldItem: Item.toNotch(bot.heldItem),
-          cursorX: 8,
-          cursorY: 8,
-          cursorZ: 8
-        })
-      } else if (bot.supportFeature('blockPlaceHasHandAndIntCursor')) {
-        console.log(3);
-        bot._client.write('block_place', {
-          location: block.position,
-          direction: 1,
-          hand: 0,
-          cursorX: 8,
-          cursorY: 8,
-          cursorZ: 8
-        })
-      } else if (bot.supportFeature('blockPlaceHasHandAndFloatCursor')) {
-        console.log(2);
-        bot._client.write('block_place', {
-          location: bot.entity.position.offset(0, 0, 0),
-          direction: 1,
-          hand: 0,
-          cursorX: 0.5,
-          cursorY: 0.5,
-          cursorZ: 0.5
-        })
-      } else if (bot.supportFeature('blockPlaceHasInsideBlock')) {
-          console.log(1);
-        bot._client.write('block_place', {
-          location: bot.entity.position.offset(0, 0, 0),
-          direction: 1,
-          hand: 0,
-          cursorX: 0.5,
-          cursorY: 0.5,
-          cursorZ: 0.5,
-          insideBlock: false
-        })
-      }
-
-      // swing arm animation
-      //bot.swingArm()
-    
-  }
