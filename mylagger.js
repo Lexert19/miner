@@ -79,12 +79,14 @@ async function startLagging() {
 }
 
 var target; 
+var chest;
 async function openChest(){
     try{
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
-        var chest = bot.openChest(target)
-        var chest = bot.openChest(target)
-        var chest = bot.openChest(target)
+        chest = bot.openChest(target)
+
+        // var chest = bot.openChest(target)
+        // var chest = bot.openChest(target)
         // await new Promise((resolve, reject) => setTimeout(resolve, 50));
         // chest.close();
         // await new Promise((resolve, reject) => setTimeout(resolve, 50));
