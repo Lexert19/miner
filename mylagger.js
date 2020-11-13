@@ -84,7 +84,7 @@ async function openChest(){
     try{
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
         chest = bot.openChest(target)
-        await new Promise((resolve, reject) => setTimeout(resolve, 200));
+        await new Promise((resolve, reject) => setTimeout(resolve, 50));
         // var chest = bot.openChest(target)
         // var chest = bot.openChest(target)
         // await new Promise((resolve, reject) => setTimeout(resolve, 50));
