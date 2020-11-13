@@ -83,13 +83,15 @@ async function openChest(){
     try{
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
         var chest = bot.openChest(target)
-        await new Promise((resolve, reject) => setTimeout(resolve, 50));
-        chest.close();
-        await new Promise((resolve, reject) => setTimeout(resolve, 50));
-        chest.close();
-        await chest.on('open', function () {
-             chest.close();
-        })
+        var chest = bot.openChest(target)
+        var chest = bot.openChest(target)
+        // await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        // chest.close();
+        // await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        // chest.close();
+        // await chest.on('open', function () {
+        //      chest.close();
+        // })
     }catch(e){
 
     }
