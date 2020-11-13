@@ -57,10 +57,11 @@ async function connecting() {
 
 async function startLagging() {
     try{
+        console.log("1");
         bot.lookAt(bot.entity.position.offset(0, 0, 0))
         var target = await bot.blockAt(bot.entity.position.offset(0, 0, 0))
-        var chest = await bot.openChest(target)
-        chest = await bot.openChest(target);
+        var chest = bot.openChest(target)
+        chest.close();
         chest.close();
     }catch(e){
 
