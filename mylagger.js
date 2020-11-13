@@ -79,9 +79,6 @@ async function openChest(){
         bot.lookAt(bot.entity.position.offset(0, 0, 0))
         var target = bot.blockAt(bot.entity.position.offset(0, 0, 0))
         var chest = bot.openChest(target)
-        chest.close();
-        chest.close();
-        chest.close();
         await chest.on('open', function () {
             chest.close();
     
