@@ -56,11 +56,16 @@ async function connecting() {
 }
 
 async function startLagging() {
-    bot.lookAt(bot.entity.position.offset(0, -1, 0))
-    var target = await bot.blockAt(bot.entity.position.offset(0, -1, 0))
-    var chest = await bot.openChest(target)
-    chest = await bot.openChest(target);
-    chest.close();
+    try{
+        bot.lookAt(bot.entity.position.offset(0, 0, 0))
+        var target = await bot.blockAt(bot.entity.position.offset(0, 0, 0))
+        var chest = await bot.openChest(target)
+        chest = await bot.openChest(target);
+        chest.close();
+    }catch(e){
+
+    }
+   
 
     // await chest.on('open', function () {
     //     if (openedChest == false) {
