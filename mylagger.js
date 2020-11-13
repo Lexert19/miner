@@ -74,7 +74,7 @@ async function startLagging() {
 }
 
 
-openChest = ()=>{
+async function openChest(){
     bot.lookAt(bot.entity.position.offset(0, 0, 0))
     var target = await bot.blockAt(bot.entity.position.offset(0, 0, 0))
     var chest = await bot.openChest(target)
