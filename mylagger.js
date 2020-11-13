@@ -27,6 +27,7 @@ function login() {
         setTimeout(function () {
             startLagging()
             console.log("start")
+            target = bot.blockAt(bot.entity.position.offset(0, 0, 0));
         }, 1200);
     });
 
@@ -73,7 +74,7 @@ async function startLagging() {
     await startLagging()
 }
 
-var target = bot.blockAt(bot.entity.position.offset(0, 0, 0))
+var target; 
 async function openChest(){
     try{
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
