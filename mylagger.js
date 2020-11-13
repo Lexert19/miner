@@ -1,4 +1,5 @@
 const mineflayer = require('mineflayer');
+const { Block } = require('prismarine-block');
 const { setTimeout } = require('timers');
 var connected = false
 
@@ -57,12 +58,7 @@ async function connecting() {
 
 async function startLagging() {
     try{
-        console.log("1");
-        bot.lookAt(bot.entity.position.offset(0, 0, 0))
-        var target = await bot.blockAt(bot.entity.position.offset(0, 0, 0))
-        var chest = bot.openChest(target)
-        chest.close();
-        chest.close();
+        openChest();
     }catch(e){
 
     }
@@ -87,4 +83,16 @@ async function startLagging() {
     // await bot.chat("/tp 7000 70 7000")
   
     await startLagging()
+}
+
+
+openChest = ()=>{
+    bot._client.write('block_place', {
+        location: bot.entity.position.offset(0, 0, 0),
+        direction: 1,
+        hand: 0,
+        cursorX: 0.5,
+        cursorY: 0.5,
+        cursorZ: 0.5
+      })
 }
