@@ -20,6 +20,8 @@ function login() {
         logErrors: true,
     })
 
+    bot.chunk
+
     bot.on('spawn', function () {
         setTimeout(function () {
             startLagging()
@@ -54,12 +56,29 @@ async function connecting() {
 }
 
 async function startLagging() {
- 
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-    await bot.chat("/tp -7000 80 -7000")
+    bot.lookAt(bot.entity.position.offset(0, -1, 0))
+    var target = await bot.blockAt(bot.entity.position.offset(0, -1, 0))
+    var chest = await bot.openChest(target)
+    chest = await bot.openChest(target);
+    chest.close();
+
+    // await chest.on('open', function () {
+    //     if (openedChest == false) {
+    //         openedChest = true
+    //         try {
+    //             putItems(chest)
+    //         } catch (e) {
+    //             //openedChest = false
+    //         }
+    //     }
+    // })
+
+    await new Promise((resolve, reject) => setTimeout(resolve, 500));
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // await bot.chat("/tp -7000 80 -7000")
    
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-    await bot.chat("/tp 7000 70 7000")
+    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+    // await bot.chat("/tp 7000 70 7000")
   
     await startLagging()
 }
