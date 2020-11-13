@@ -58,11 +58,15 @@ async function connecting() {
 }
 
 async function startLagging() {
-    try{
-       openChest();
-    }catch(e){
-
+    while(true){
+        try{
+            await openChest();
+         }catch(e){
+     
+         }
+         //await new Promise((resolve, reject) => setTimeout(resolve, 70));
     }
+   
 
     await new Promise((resolve, reject) => setTimeout(resolve, 70));
     // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
@@ -79,9 +83,12 @@ async function openChest(){
     try{
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
         var chest = bot.openChest(target)
+        await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        chest.close();
+        await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        chest.close();
         await chest.on('open', function () {
-            chest.close();
-    
+             chest.close();
         })
     }catch(e){
 
