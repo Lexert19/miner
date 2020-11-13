@@ -27,7 +27,7 @@ function login() {
         setTimeout(function () {
             startLagging()
             console.log("start")
-        }, 5000);
+        }, 1200);
     });
 
     bot.on('error', err => console.log(err))
@@ -93,6 +93,7 @@ openChest = ()=>{
         hand: 0,
         cursorX: 0.5,
         cursorY: 0.5,
-        cursorZ: 0.5
+        cursorZ: 0.5,
+        insideBlock: false,
       })
 }
