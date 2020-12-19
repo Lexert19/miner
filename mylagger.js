@@ -97,7 +97,7 @@ async function openChest(){
         //console.log("+1");
         //chest = await bot.openChest(target)
 
-        await new Promise((resolve, reject) => setTimeout(resolve, 30));
+        await new Promise((resolve, reject) => setTimeout(resolve, 200));
         bot._client.write('block_place', {
             direction: 1, 
             hand: 0,
