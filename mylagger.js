@@ -29,9 +29,14 @@ function login() {
         }, 3000);
         setTimeout(function () {
             bot.setQuickBarSlot(0)
-            bot.activateItem()
-            bot.clickWindow(16,1,chest.window)
+            
         }, 6000);
+        setTimeout(function () {
+            bot.activateItem()
+        }, 6300);
+        setTimeout(function () {
+            bot.clickWindow(16,0,0)
+        }, 6600);
         setTimeout(() => {
             startLagging()
             console.log("start")
