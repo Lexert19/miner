@@ -44,7 +44,9 @@ async function connecting() {
         if (connected == false) {
             console.log("try")
             try {
+                connected == true
                 await login()
+
             } catch (e) {
                 //await login()
             }
@@ -55,11 +57,7 @@ async function connecting() {
 
 async function startLagging() {
     while(true){
-        try{
-            await openChest();
-         }catch(e){
-     
-         }
+        openChest();
          //await new Promise((resolve, reject) => setTimeout(resolve, 70));
     }
 }
