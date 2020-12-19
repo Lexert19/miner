@@ -57,7 +57,7 @@ async function connecting() {
 
 async function startLagging() {
     while(true){
-        openChest();
+        await openChest();
          //await new Promise((resolve, reject) => setTimeout(resolve, 70));
     }
 }
@@ -81,7 +81,8 @@ async function openChest(){
             cursorZ: 0, 
         }) */
 
-        bot.emit('chestLidMove', target, 2, target)
+        bot.emit('chestLidMove', target, 0, target)
+        bot.emit('chestLidMove', target, 0, null)
         // bot._client.write('block_dig', {
         //             status: 2, // finish digging
         //             location: target.position,
