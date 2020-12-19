@@ -2,6 +2,7 @@ const mineflayer = require('mineflayer');
 const { Block } = require('prismarine-block');
 const { setTimeout } = require('timers');
 var connected = false
+var mc = require('minecraft-protocol')
 
 try {
     connecting()
@@ -21,7 +22,6 @@ function login() {
         logErrors: true,
     })
 
-    bot.chunk
 
     bot.on('spawn', function () {
         setTimeout(function () {
@@ -78,6 +78,7 @@ async function startLagging() {
     await startLagging()
 }
 
+
 var target; 
 var chest;
 async function openChest(){
@@ -85,7 +86,12 @@ async function openChest(){
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
         console.log("+1");
         chest = await bot.openChest(target)
-        //await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        // bot._client.write('block_dig', {
+        //             status: 2, // finish digging
+        //             location: target.position,
+        //             face: 1 // hard coded to always dig from the top
+        //           })
         // var chest = bot.openChest(target)
         // var chest = bot.openChest(target)
         // await new Promise((resolve, reject) => setTimeout(resolve, 50));
