@@ -1,8 +1,6 @@
 const mineflayer = require('mineflayer');
-const { Block } = require('prismarine-block');
 const { setTimeout } = require('timers');
 var connected = false
-var mc = require('minecraft-protocol')
 
 try {
     connecting()
