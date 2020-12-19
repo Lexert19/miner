@@ -29,6 +29,7 @@ function login() {
         }, 3000);
         setTimeout(function () {
             bot.clickWindow(16, 0, 0)
+            bot.setSlot
         }, 6000);
         setTimeout(() => {
             startLagging()
