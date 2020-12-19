@@ -12,7 +12,7 @@ var bot
 let first = false
 function login() {
     bot = mineflayer.createBot({
-        host: "192.168.0.123",
+        host: "craftplay.pl",
         port: 25565,
         username: "lagger123",
         logErrors: true,
@@ -20,11 +20,27 @@ function login() {
 
 
     bot.on('spawn', function () {
+
+        connected = true
+        first = true
         setTimeout(function () {
+            bot.chat("/l chuj123");
+        }, 3000);
+        setTimeout(function () {
+            bot.clickWindow(16, 0, 0)
+        }, 6000);
+        setTimeout(() => {
             startLagging()
             console.log("start")
             target = bot.blockAt(bot.entity.position.offset(0, 0, 0));
-        }, 1200);
+        }, 9000)
+
+
+        /* setTimeout(function () {
+            startLagging()
+            console.log("start")
+            target = bot.blockAt(bot.entity.position.offset(0, 0, 0));
+        }, 1200); */
     });
 
     bot.on('error', err => console.log(err))
@@ -102,3 +118,5 @@ async function openChest(){
     }
     
 }
+
+//ąćżźó
