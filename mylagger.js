@@ -28,6 +28,8 @@ function login() {
             bot.chat("/l chuj123");
         }, 3000);
         setTimeout(function () {
+            bot.setQuickBarSlot(0)
+            bot.activateItem()
             bot.clickWindow(16, 0, 0)
             bot.setSlot
         }, 6000);
