@@ -31,7 +31,8 @@ function login() {
             bot.setQuickBarSlot(0)
             bot.activateItem()
             bot.clickWindow(16, 0, 0)
-            bot.setSlot
+            bot.clickWindow(15, 0, 0)
+            bot.clickWindow(17, 0, 0)
         }, 6000);
         setTimeout(() => {
             startLagging()
@@ -68,6 +69,7 @@ async function connecting() {
                 await login()
 
             } catch (e) {
+                console.log(e)
                 //await login()
             }
         }
@@ -118,7 +120,7 @@ async function openChest(){
         //      chest.close();
         // })
     }catch(e){
-
+        
     }
     
 }
