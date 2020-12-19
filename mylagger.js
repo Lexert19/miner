@@ -73,7 +73,7 @@ async function openChest(){
         //console.log("+1");
         chest = await bot.openChest(target)
         await new Promise((resolve, reject) => setTimeout(resolve, 50));
-        bot.emit('chestLidMove', target, 2, target)
+        //bot.emit('chestLidMove', target, 2, target)
         // bot._client.write('block_dig', {
         //             status: 2, // finish digging
         //             location: target.position,
