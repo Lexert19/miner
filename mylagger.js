@@ -12,11 +12,9 @@ var bot
 let first = false
 function login() {
     bot = mineflayer.createBot({
-        host: "192.168.0.122",
+        host: "192.168.0.123",
         port: 25565,
         username: "lagger123",
-        version: "1.12.2",
-        viewDistance: "tiny",
         logErrors: true,
     })
 
