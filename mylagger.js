@@ -38,6 +38,7 @@ function login() {
             startLagging()
             console.log("start")
             target = bot.blockAt(bot.entity.position.offset(0, 0, 0));
+            console.log(target)
         }, 9000)
 
 
@@ -120,7 +121,7 @@ async function openChest(){
         //      chest.close();
         // })
     }catch(e){
-        
+
     }
     
 }
