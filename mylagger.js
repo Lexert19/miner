@@ -62,16 +62,6 @@ async function startLagging() {
          }
          //await new Promise((resolve, reject) => setTimeout(resolve, 70));
     }
-   
-
-    await new Promise((resolve, reject) => setTimeout(resolve, 70));
-    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-    // await bot.chat("/tp -7000 80 -7000")
-   
-    // await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-    // await bot.chat("/tp 7000 70 7000")
-  
-    await startLagging()
 }
 
 
@@ -80,9 +70,10 @@ var chest;
 async function openChest(){
     try{
         //bot.lookAt(bot.entity.position.offset(0, 0, 0))
-        console.log("+1");
-        chest = await bot.openChest(target)
+        //console.log("+1");
+        //chest = await bot.openChest(target)
         await new Promise((resolve, reject) => setTimeout(resolve, 50));
+        bot.emit('chestLidMove', target, 2, target)
         // bot._client.write('block_dig', {
         //             status: 2, // finish digging
         //             location: target.position,
