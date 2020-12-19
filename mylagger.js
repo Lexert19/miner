@@ -14,6 +14,7 @@ function login() {
     bot = mineflayer.createBot({
         host: "craftplay.pl",
         port: 25565,
+        version: "1.12.2",
         username: "lagger123",
         logErrors: true,
     })
